@@ -31,7 +31,7 @@ Appropriate Technique The Churn dataset contains columns with categorical data. 
 
 
 
-# Logistic Regression Modeling on ISP Customer Churn Data
+# Logistic Classification Modeling on ISP Customer Churn Data
 
 https://github.com/MaxSydow/Logistic-Classification-Predicting-Customer-Churn/blob/main/LogisticRegression-checkpoint.ipynb
 
