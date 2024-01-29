@@ -18,6 +18,8 @@
 
 [Time Series](#Time-Series-Analysis---Using-a-Seasonal-ARIMA-Model-to-Predict-ISP-Revenue)
 
+[NLP 1: Sentiment Classification Using RNN](#Using-Labeled-Customer-Reviews-to-Make-Binary-Sentiment-Predictions-With-NLP-and-Recurrent-Neural-Networks)
+
 # Predicting Customer Tenure Using Linear-Regression
 
 https://github.com/MaxSydow/Linear-Regression-Predicting-Customer-Tenure/blob/main/MultReg-checkpoint.ipynb
@@ -367,5 +369,16 @@ Yt = (B1 + B2) + (M1Y(t-1) + ... + MpY(t-p)) + (w1E(t-1) + w2E(t-2) + ... + wqE(
 Another important feature of a time series to consider is the behavior of means and standard deviations within lagged intervals. One way that means may differ is if there are seasonal trends in the data. While the means within fall and winter months may not differ too much, the larger spring and summer means might. This indicates seasonality within the time series. Distributions amongnst intervals may also exist, which would indicate the MA error term is not constant. For a time series to be stationary the means and standard deviations of lagged samples need to be constant, and there should be no seasonality.
 
 An Integrated ARMA (ARIMA) model mitigates moving means. This can be accomplished by taking the difference of successive lagged intervals, or perhaps using a log or other form of transform. Before ensuring the stationarity assumption and performing any transformation, it is imperitive to check for any missing values and deal with outliers.
+
+[Back to top](#Resume-Project-List-Summary)
+
+# Using Labeled Customer Reviews to Make Binary Sentiment Predictions With NLP and Recurrent Neural Networks
+
+## Research Question and Goals
+Can natural language processing be used to predict negative or positive customer sentiment based on their verbal or writtent reviews? This would give companies a better idea of customer perceptions and may form a basis for finding areas of improvement.
+
+Written customer reviews from 3 sources: Amazon, IMDB, and Yelp will be examined. Each review in these data sets are assigned a sentiment rating or 1 for positive, or 0 for negative. There are thusly 2 columns with each row describing a single review and sentiment pair. The number of words in each review may vary greatly, and so a model to make such predictions needs to be able to handle a wide range of input sizes. A neural network (NN) is such a model. Some preproccessing is required in order for it to work right though. The inputs to be numeric, so a method of assigning words to numbers needs to be employed. Counting similar words and even the same words typed using different case can affect predictions, so can the appearance of numbers or special characters. An algorithm can only work with what is fed to it, after all. With that in mind, meaningless words like 'an' or 'the' would not add much value. Maximum number of processed words and average word length are other factors that will come into consideration when building the network.
+
+Python's natural language toolkit (nltk) will be useful for simplifying vocabulary. Sklearn has some useful functions for representing words and letters as numbers and splitting data into training and testing sets. Pandas and Numpy are involved with data handling, while matplotlib allows for graphing. The Tensorflow and Keras packages allow nueral networks to be constructed. In particular, Keras allows for high-level api creation of NNs using layers. Since a NN can be represented as sets of interconnected nodes divided into layers it makes sense to be able create them that way. Each connection between nodes applies a weight to the node value which is transformed via a mathematical function. Predictions are made by the changes that data goes through under these transformations. Along the way performance metrics are honed and optimized in both directions throughout the network. A NN that can do this is called Recurrent, or RNN.
 
 [Back to top](#Resume-Project-List-Summary)
