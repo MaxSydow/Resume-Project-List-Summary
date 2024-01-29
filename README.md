@@ -16,7 +16,7 @@
 
 [Market Basket Analysis](#Market-Basket-Analysis-and-Product-Sales-Suggestions)
 
-
+[Time Series](#Time-Series-Analysis---Using-a-Seasonal-ARIMA-Model-to-Predict-ISP-Revenue)
 
 # Predicting Customer Tenure Using Linear-Regression
 
@@ -335,5 +335,37 @@ The essential idea behind Market Basket Analysis (MBA) is to use these 3 metrics
 There are 20 unique items in this data set, and the number of combinations of products purchased increases astronomically as more items are considered. Thankfully, there is an implimentable algorithm that can be used to narrow down the number of combinations. According to Datacamp "The Apriori algorithm is structured around the idea that we should retain items that are frequent -- that is, exceed some minimal level of support. The Apriori principle states that subsets of frequent sets must also be frequent. The Apriori algorithm uses this principle to retain frequent sets and prune those that cannot be said to be frequent."
 
 In general confidence, which ranges from 0 to 1, should be high. Also, a lift greater than 1 implies that 2 items in a transaction exceeds their random occurance together. Python also has an association_rules function that ranks association rules according to support, confidence and lift.
+
+[Back to top](#Resume-Project-List-Summary)
+
+# Time-Series-Analysis - Using a Seasonal ARIMA Model to Predict ISP Revenue
+
+## Purpose
+At a very high level, the upper-most tiers of leadership including the board of directors of an ISP may be interested in a quick summary of overall revenue trends. Seasonal fluctuations and possible predictions for future time periods should be available for such a broad measure after the first 2 years of operations.
+
+An analyst or data scientist may begin their approach to such an insight driven task by asking themselves if there exists any periodic repetetiveness over time for overall revenue. During the first 2 years of operations is there a significant difference in the revenenue for Q2 from the other quarters or seasons? Perhaps a more interesting report would say whether revenue is expected to increase in future months. Crucial decisions regarding investor engagement and top-down reorganization of the company may impinge upon these results.
+
+## Method_Justification
+In addition to periodic fluctuation in revenue over time there may exist larger upward or downward trends over the 2 year span of available data. A smoothed out pattern of mean revenue could be plotted to help visualize this if that were the case. On the other hand, too much fluctuation on a smaller scale may indicate noise which could impeede efforts to make predictions. A machine learning model may place too much emphasis on this noise and result in overfitting on test data. A transformation to mitigate larger trends can ensure stationarity of time series data, while spectral decomposition can aid with reducing random noise. All these factors should be considered when building a predictive time series model.
+
+Autocorrelation takes samples of times series data over the same time intervals and measures strength of correlation between them. An example of a single lag could be correlating one month of data with the previous month. When more previous months, or any lengths of time period are correlated the lag count increments by 1 for each successive interval. With more lag intervals there are more possibilities of interactions amongst sub-intervals, and autocorellation treats all of these. Partial autocorellation looks only at interactions between adjacent lags. (Abhishek, 2019) An Auto Regressive (AR) model uses partial auto-correlation, and yields an equation of the form:
+
+Y(t) = B1 + M1Y(t-1) + M2Y(t-2) + ... + MpY(t-p),
+
+where p is the lag order in the time series, and the Ms are the weights of lagged observations.
+
+Moving Average (MA) treats errors in the lagged observations from AR. The resulting equation is of the same form as the one derived from partial autocorrelation.
+
+Yt = B2 + w1E(t-1) + w2E(t-2) + ... + wqE(t-q) + Et.
+
+Here the w's are weights of the error terms E, and q is the size of the moving window.
+
+When AR and MA are combined the equations is:
+
+Yt = (B1 + B2) + (M1Y(t-1) + ... + MpY(t-p)) + (w1E(t-1) + w2E(t-2) + ... + wqE(t-q) + Et)
+
+Another important feature of a time series to consider is the behavior of means and standard deviations within lagged intervals. One way that means may differ is if there are seasonal trends in the data. While the means within fall and winter months may not differ too much, the larger spring and summer means might. This indicates seasonality within the time series. Distributions amongnst intervals may also exist, which would indicate the MA error term is not constant. For a time series to be stationary the means and standard deviations of lagged samples need to be constant, and there should be no seasonality.
+
+An Integrated ARMA (ARIMA) model mitigates moving means. This can be accomplished by taking the difference of successive lagged intervals, or perhaps using a log or other form of transform. Before ensuring the stationarity assumption and performing any transformation, it is imperitive to check for any missing values and deal with outliers.
 
 [Back to top](#Resume-Project-List-Summary)
