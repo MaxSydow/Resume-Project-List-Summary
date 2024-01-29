@@ -20,6 +20,8 @@
 
 [NLP 1: Sentiment Classification Using RNN](#Using-Labeled-Customer-Reviews-to-Make-Binary-Sentiment-Predictions-With-NLP-and-Recurrent-Neural-Networks)
 
+[NLP 2: Word Corpus Groupings Using Cosine-Similarity](#Identifying-Internet-Outages-Using-NLP-With-Twitter)
+
 # Predicting Customer Tenure Using Linear-Regression
 
 https://github.com/MaxSydow/Linear-Regression-Predicting-Customer-Tenure/blob/main/MultReg-checkpoint.ipynb
@@ -380,5 +382,79 @@ Can natural language processing be used to predict negative or positive customer
 Written customer reviews from 3 sources: Amazon, IMDB, and Yelp will be examined. Each review in these data sets are assigned a sentiment rating or 1 for positive, or 0 for negative. There are thusly 2 columns with each row describing a single review and sentiment pair. The number of words in each review may vary greatly, and so a model to make such predictions needs to be able to handle a wide range of input sizes. A neural network (NN) is such a model. Some preproccessing is required in order for it to work right though. The inputs to be numeric, so a method of assigning words to numbers needs to be employed. Counting similar words and even the same words typed using different case can affect predictions, so can the appearance of numbers or special characters. An algorithm can only work with what is fed to it, after all. With that in mind, meaningless words like 'an' or 'the' would not add much value. Maximum number of processed words and average word length are other factors that will come into consideration when building the network.
 
 Python's natural language toolkit (nltk) will be useful for simplifying vocabulary. Sklearn has some useful functions for representing words and letters as numbers and splitting data into training and testing sets. Pandas and Numpy are involved with data handling, while matplotlib allows for graphing. The Tensorflow and Keras packages allow nueral networks to be constructed. In particular, Keras allows for high-level api creation of NNs using layers. Since a NN can be represented as sets of interconnected nodes divided into layers it makes sense to be able create them that way. Each connection between nodes applies a weight to the node value which is transformed via a mathematical function. Predictions are made by the changes that data goes through under these transformations. Along the way performance metrics are honed and optimized in both directions throughout the network. A NN that can do this is called Recurrent, or RNN.
+
+[Back to top](#Resume-Project-List-Summary)
+
+# Identifying-Internet-Outages-Using-NLP-With-Twitter
+
+## Project Summary
+The overall goal of this project was to provide alerts for possible internet outages by analyzing content from customers posted on Twitter. The result was a visual dashboard showing counts of observed word groupings related to possible outage types. This dashboard was incorporated into the ISPs existing outage reporting system, and was used to trigger email alerts to relevant work groups to aid in diagnosing and resolving a common cause issue.
+
+Directed Tweets were already being responded to by technical support representatives, and this same set of Tweets was chosen to analyze. Python’s TwitterScraper package was used to extract and filter Tweet content. A Twitter Developer account was needed to be created in order to use this package. The remains were exported to comma separated files (CSVs). Spurious content such as stop words, articles, and names were filtered out. Different forms of the same words were also grouped together in a process known as lemmatization. For example, “talk”, “talking”, and “talked” are different verb forms of the same word. Once the content of Tweets was cleaned, counts of the most frequently occurring words and 2-3 word phrases were extracted. The sets of most frequent words and phrases were then organized into dataframes using Python’s Pandas data analytics package.
+
+From here word groupings were identified using a form of machine learning called natural language processing (NLP). Lists of words that may describe internet outages and those that don’t were identified and used to test for similarity to form the word groupings from NLP. These lists were agreed upon during a brainstorming session involving all team members. The Word2Vec NLP model was used to obtain the groupings, and cosine similarity scores were computed to measure relatedness of groupings to the list of outage related terms. A t-SNE plot to visually represent the degrees of relatedness of words in Tweets to outage descriptors was made. Each word appears as a point on a 2-dimensional plane, color coded according to grouping. The larger the point, the stronger the word is related to an outage.
+
+The ISPs existing outage reporting system was used as well. Outage categories, durations, and locations were extracted. The ISP uses an Oracle database to store the information from this system so SQL was used to make these queries. TwitterScraper was used again on each word grouping for the times that each outage actually occurred. If any frequency of word groupings coincided with the duration of an outage it was noted along with the number of words and phrases in each group. Since TwitterScraper does not provide exact locations, only cities that users identified were used to compare with real outage locations.
+
+For some groupings it was clear that a higher spike in word groupings were related to outages, for others statistical T-tests could be performed. These T-tests allowed for rejection of a null hypothesis that the mean word frequencies for coincidence is less than or equal to the mean for non-coincidence. For coinciding groups the mean frequency minus standard deviations were computed to use as a threshold indicator of possible outage. This threshold was divided by the time of outage duration to obtain a scalable metric.
+
+Now that word groupings and thresholds of occurrences were identified, their figures were summarized graphically in Tableau. Each outage related word grouping was color coded and the counts for outage durations were displayed in histogram form. This visual dashboard was then added to the existing outage reporting system, and functionality to adjust time intervals was added.
+
+Twitter’s API provides geolocations, but can only be used to extract data going back one month. The same process of comparing with real outages carried out above was performed for the previous month. Deviations in corresponding word group frequencies were found to be negligible during that interval, so the metrics found from the longer duration analysis were kept.
+
+Scripts to trigger the code to extract and analyze Tweets using the API were made. These scripts were set to run every hour. The output of word group counts were then updated to the dashboard with each iteration. The threshold of frequencies was indicated as a solid vertical line in each histogram column to visualize if/when the counts indicate a possible outage. If the height of a bin exceeded that threshold an alert was triggered. Scripts to monitor that were made, which then triggered sending emails to relevant work groups. The relevant work groups and content of emails were determined during an early brainstorming Scrum meeting.
+
+A representative from each work group was chosen to respond to follow up to confirm that alerts and emails were received during the last day of work. Representatives from each organization that uses the dashboard were also consulted to make sure they were able to access it. After these meetings it was determined that further training on the use of these new features was needed.
+
+## Code Overview
+Python 3.7 was used in a Jupyter notebook for ETL and NLP. The code is included in InternetOutagesNLP.ipynb The following specific modules used include:
+
+twitterscraper - used for extracting Tweets
+pandas, numpy, matplotlib - data anlytics packages
+sklearn, seaborn - machine learning, and statistics
+nltk, word2vec, CountVectorizer - NLP packages
+The following outlines what the code does
+Functions, packages, and ML models are indicated in bold.
+
+Data frames and lists are indicated using italics.
+
+Tweets were extracted and saved to csvs from a list of southwestern cities including: Houston, San Antonio, Austin, Dallas, Fort Worth, Oklahoma City, Tulsa, Santa Fe, and Aluquerque.
+The csvs were read into data frames with text, timestamp and location fields.
+The text_clean() function used a regex to filter only words, and a custom list of stop words was used for further filtering.
+The cleaned data frame tweets_df was then updated.
+CountVecotrizer was instantiated and summaries of top 10 occuring words and phrases were found.
+The nltk.corpus stopwords package and further use of regex's were applied to tweets_df, before the remains were composed into the final_tweet_list list to be tokenized.
+The Word2Vec model was instantiated as tweets2vec and trained on final_tweet_list.
+A t-SNE model from sklearn was applied to the tweets2vec model.
+The vectorize_corpus() function was used to create a corpus of key words related to outages.
+Lists of words related to outages, and opposites were initialized: internet_out and not_out.
+Cosine similarity scores were computed using the cos_sim() function to quantify similarity of words from final_tweet_list to internet_out and not_out lists.
+A t-SNE plot was created to show strength of relatedness according to size of circles in 2D plot, with blue relating to occurance of outage, and grey corresponding to not being related to outage.
+
+## Project Methodology
+The Scrum project implementation methodology was used to carry this project out. Scrum breaks a project down into sprints, which involve team members working in a focused manner on a specific objective. Scrum meetings are scheduled to communicate progress on achieving benchmarks. Little scope creep or deviation is allowed, which keeps teams focused on their goals defined by the sprints. The path from extracting Tweets to presenting a functional dashboard can be broken down into manageable tasks.
+
+A team of analysts, developers, a data scientist, a product owner, and Scrum Master were assembled. The product owner and Scrum Master are roles specifically designated to manage a Scrum project. The product owner served as liaison between the project group and stakeholders. Stakeholders include the relevant workgroups identified above, as well as some senior management. This role is also responsible for scheduling and managing any backlog of objectives that may not have met the planned timeline. The Scrum Master serves as a team leader in the project. They work closely with team members to keep the project on schedule and communicate any needs of the team with the product owner. The scrum master also conducts sprint meetings and documents progress in achieving objectives.
+
+The analysts were heavily involved with the earlier objectives of the project including. These objectives include:
+
+Scraping data from Tweets by username going back 5 yrs.
+Cleaning data – remove stop words, etc.
+Preparing data frames and conduct NLP
+Extracting data from existing outage reporting system going back 5 yrs.
+The data scientist was then responsible for performing the machine learning aspects. This included:
+
+Performing correlation study between frequently appearing words and actual outage occurrence
+Grouping high frequency words into training and testing feature sets
+Coding and running Word2Vec algorithm
+Developers played a crucial role in the latter portions of the project including:
+
+Managing locations of scripts and csv’s, and creating batch files for them
+Scheduling execution of scripts, and email alerts Analysts were also responsible for creating the Tableau dashboard, while developers linked it to the existing outage reporting site.
+Vizualization Examples
+t-SNE Plot
+t-SNE
+
+Example bar chart (made with Tableau) showing key word counts related to outages pertaining to network congestion.
 
 [Back to top](#Resume-Project-List-Summary)
