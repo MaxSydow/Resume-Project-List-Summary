@@ -451,10 +451,12 @@ Developers played a crucial role in the latter portions of the project including
 
 Managing locations of scripts and csv’s, and creating batch files for them
 Scheduling execution of scripts, and email alerts Analysts were also responsible for creating the Tableau dashboard, while developers linked it to the existing outage reporting site.
-Vizualization Examples
-t-SNE Plot
-t-SNE
+## Vizualization Examples
+### t-SNE Plot
+![image](https://github.com/MaxSydow/Resume-Project-List-Summary/assets/56166497/84047099-eba3-4435-a347-785476a796f7)
+
 
 Example bar chart (made with Tableau) showing key word counts related to outages pertaining to network congestion.
+![image](https://github.com/MaxSydow/Resume-Project-List-Summary/assets/56166497/2f1d0fc7-47c5-4a36-920b-424e967d1d76)
 
 [Back to top](#Resume-Project-List-Summary)
