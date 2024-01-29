@@ -93,7 +93,7 @@ Python has several packages that can make the computations and obtain get these 
 
 The 4 categories of predictions can be used to compute accuracy metrics. True Positive Rate (TPR) and False Positive Rate (FPR) use these categories. A plot of TPR vs. FPR gives an ROC (receiver operating chatacteristic) curve. The area under the curve (auc) provides a measure of how well a variable contributes the prediction; 0 being weakest to 1 being strongest. The auc can be computed as explanatory variables are added to the model in a process called forward stepwise variable selection. If too many features are used in a model the predictions on the test data may grow further away from the data, it was trained on. This would indicate overfitting, so using auc with stepwise selection can provide a way to obtain a good collection of explanatory features to keep in a final model.
 
-
+[Back to top](#Resume-Project-List-Summary)
 
 # Towards Automated and Customized Loan Approval Criteria Using Segmented Logistic Classification Models
 
@@ -109,7 +109,7 @@ Accuracy could be used instead of AUC scores in the RFE process to get the best 
 ## Data Collection and Summary
 A Bank Loan Status Data Set was found on kaggle, with the objective of having participants predict future loan status using classification models. The site posting did not indicate if this is real or mock data, but the kinds of columns included seem like realistic attributes that a bank or lender would track. It would not be too much of a stretch of the imagination to see how the methods of analysis used in this treatment could be applied to real data. The csv data sets were downloadable as test and train sets with 100,000 rows in train, and 10,000 rows in test. They will be combined and split using a different proportion later. This data was already mostly prepared and fairly easy to load and prepare. Real data in an organization may be stored in a database and require some SQL or other form of ETL method to assemble such a table.
 
-
+[Back to top](#Resume-Project-List-Summary)
 
 # PCA Variance Thresholds and Dimensional Reduction
 
@@ -141,7 +141,7 @@ The item data frame is ordered by a unique indexed column, and contains no missi
 
 Python's sklearn.decomposition package allows for fitting of a PCA model to original data. It also provides easy to use functions to compute component variances in an similar way that eigenvalues are computed. This allows for the use of these variances when reducing dimensions by componenets. In general the ranges of all original variables may not be the same. This can result in skewed variances and misalignment to principal components. For this reason it is best to scale each variable before fitting the PCA model. Sklearn has a standardscaler function that will transform each value so that the column means are 0 and standard deviation is 1. So, the assumptions of the data to be used for PCA are that each column be continuous, numeric and scaled. It does not make any predictions or clustering, but collapses the dimensionality of the dataset according to similarity of each column's variances.
 
-
+[Back to top](#Resume-Project-List-Summary)
 
 # Optimizing K-Nearest Neighbors Classifier to Predict Customer Churn
 
@@ -234,7 +234,7 @@ F1 = 2 x (Precision x Recall) / (Precision + Recall) (Analytics Vidhya)
 
 In KNN larger values of K generally leads to a smoother decision boundary, while smaller K has a more complex decision boundary which can lead to overfitting. The .score() function provides a simple means of measuring accuracy of model predictions on a sample measured against actual outcomes in the same sample. (scikit-learn.org). A plot of training and testing set accuracies can be made for varying K's. Such a plot is called a model complexity plot. (Data Camp - Supervised Learning with scikit-learn, Ch. 1) In some cases when K becomes too large the accuracies of training and testing samples diverge from each other, and this is where underfitting occurs. The sweet spot on the model complexity plot occurs when the accuracy measures are closest together.
 
-
+[Back to top](#Resume-Project-List-Summary)
 
 # Predicting Bandwidth Usage With Random Forest Regression
 
