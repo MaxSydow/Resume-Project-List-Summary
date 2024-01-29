@@ -1,10 +1,12 @@
 # Resume-Project-List-Summary
 
-[Linear Regression](#Predicting-Customer-Tenure-Using-Linear-Regression)
+[Linear Regression 1: Predecting Customer Tenure](#Predicting-Customer-Tenure-Using-Linear-Regression)
 
-[Logistic Classification](#Logistic-Classification-Modeling-on-ISP-Customer-Churn-Data)
+[Linear Regression 2: Predicting Catalog Demand](#Predicting-Catalog-Demand)
 
-[Logistic Classification 2](#Towards-Automated-and-Customized-Loan-Approval-Criteria-Using-Segmented-Logistic-Classification-Models)
+[Logistic Classification 1: Predicting Customer Churn](#Logistic-Classification-Modeling-on-ISP-Customer-Churn-Data)
+
+[Logistic Classification 2: Identifying Loan Borrower Features Associated With Timely Payback](#Towards-Automated-and-Customized-Loan-Approval-Criteria-Using-Segmented-Logistic-Classification-Models)
 
 [Principle Component Analysis (PCA)](#PCA-Variance-Thresholds-and-Dimensional-Reduction)
 
@@ -48,8 +50,13 @@ Appropriate Technique The Churn dataset contains columns with categorical data. 
 
 [Back to top](#Resume-Project-List-Summary)
 
+# Predicting Catalog Demand
 
+## Business and Data Understanding
+One way that a high-end home goods manufacturer generates revenue is through catalog purchases. The company has kept demographic and past sales data, and has used this to calculate likelihood for a customer to make a purchase whether or not they responded to the catalog. Another dataset for 250 new customers, who have not yet had a chance to respond to the catalog contains the same demographic data, and columns for the probability of them buying from the catalog as it would impossible to inlcude of them already having done so. Management requested a newly acquired analyst to help decide whether issuing catalogs to these new customers would be worthwhile, and has determined that an expected net profit of $10,000 would need to be exceded in order to make this decision.
+The data from existing catalog receiving customers can be used to predict sales using other attributes in a linear model. Graphical exploration of trends for potential predictor variables, and mathematical indicators describing strength of fit and probability of impact on outcome can be used to determine the best model to make these predictions. Profit margin, the cost of printing catalogs, and the likelihood for catalog purchase can then be used to calculate the final overall expected profit.
 
+[Back to top](#Resume-Project-List-Summary)
 
 # Logistic Classification Modeling on ISP Customer Churn Data
 
