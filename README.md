@@ -4,6 +4,8 @@
 
 [Logistic Classification](#Logistic-Classification-Modeling-on-ISP-Customer-Churn-Data)
 
+[Logistic Classification 2](#Towards-Automated-and-Customized-Loan-Approval-Criteria-Using-Segmented-Logistic-Classification-Models)
+
 # Predicting Customer Tenure Using Linear-Regression
 
 https://github.com/MaxSydow/Linear-Regression-Predicting-Customer-Tenure/blob/main/MultReg-checkpoint.ipynb
@@ -82,3 +84,19 @@ Tool Benefits and Technique
 Python has several packages that can make the computations and obtain get these equations much faster. In addition, there are other pre-coded functions that aid in determining the accuracy of the model and choose which explanatory variables are best. The sklearn library contains a vast number of such functions. Beyond just finding a good fit, the explanatory and predicted variables can be split into training and testing sets. Half of the 10,000 rows of data can be used to compute the model, and the predictions it makes can be verified against the rest. This allows for computations of True Positive (TP), True Negative (FN), False Positive (FP), and False Negative (FN) outcomes. These 4 values are typically summarized in a confusion matrix.
 
 The 4 categories of predictions can be used to compute accuracy metrics. True Positive Rate (TPR) and False Positive Rate (FPR) use these categories. A plot of TPR vs. FPR gives an ROC (receiver operating chatacteristic) curve. The area under the curve (auc) provides a measure of how well a variable contributes the prediction; 0 being weakest to 1 being strongest. The auc can be computed as explanatory variables are added to the model in a process called forward stepwise variable selection. If too many features are used in a model the predictions on the test data may grow further away from the data, it was trained on. This would indicate overfitting, so using auc with stepwise selection can provide a way to obtain a good collection of explanatory features to keep in a final model.
+
+
+
+# Towards Automated and Customized Loan Approval Criteria Using Segmented Logistic Classification Models
+
+## Introduction, Research Question and Hypothesis.
+Credit score, income, previous debt amount and other numerically continuous attributes are typically used when determining the amount to approve for a loan. Instead of using a standard criterion in which a hierarchy of factors are applied for all loan approval decisions it may be more accurate to tailor differing orders of such factors based on certain groupings of other borrower traits. For example, years of credit history may be the most influential indicator of whether a loan will be repaid on time for a homeowner who has been at their current job for over 10 years. Income may be the biggest driver for someone who rents and is seeking debt consolidation. Establishing more nuanced approval requirements may help lenders provide better individualized service to their customers and provide loan officers with better means of determining approval.
+
+Almost any data set that has at least one continuous, one binary and one categorical column can be subsetted according to the unique values in the categorical column. Individual logistic classigication (logit) models can be fitted for each subset. If the models accuracy is reasonably good then the slope of the coefficient for the predictor variable gives an indication of strength of influence. When separate multiple logistic classification models are fitted to grouped subsets of a larger data set by unique values in categorical columns, will there be more than 1 statistically significant predictor variable amongst more than 1 categorical column so that the slope coeffiecents of log-transformed equations of fit can be used to summarize at least one difference in variable impact across segments?
+
+A hypothesis can be constructed from this question. Amongst several multiple logistic classification models fitted from this data grouped according to unique values in categorical columns, at least 2 models can be found with at least 2 predictor variables that have different coefficients, and statistically significant predictive accuracy as measured using AUC scores in recursive feature elimination.
+
+Accuracy could be used instead of AUC scores in the RFE process to get the best fitting models. (Brownlee, 2020). ROC_AUC (reciever operating characteristic area under curve, or AUC for short) scores are measured from the ratio of true positive to false negative predictions and so give an additional indication of how a model compares to random guessing. Accuracy is only measured by comparing predictions from a trained model to test data, regardless of how randomly distributed the test data may actually be. Nevertheless, accuracy will be used when examining the results and implications of the models obtained.
+
+## Data Collection and Summary
+A Bank Loan Status Data Set was found on kaggle, with the objective of having participants predict future loan status using classification models. The site posting did not indicate if this is real or mock data, but the kinds of columns included seem like realistic attributes that a bank or lender would track. It would not be too much of a stretch of the imagination to see how the methods of analysis used in this treatment could be applied to real data. The csv data sets were downloadable as test and train sets with 100,000 rows in train, and 10,000 rows in test. They will be combined and split using a different proportion later. This data was already mostly prepared and fairly easy to load and prepare. Real data in an organization may be stored in a database and require some SQL or other form of ETL method to assemble such a table.
