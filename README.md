@@ -36,6 +36,8 @@ Tool Benefits In a single variable model finding the smallest residuals can be f
 
 Appropriate Technique The Churn dataset contains columns with categorical data. Some of these columns might be useful in making predictions but can’t be treated mathematically. When columns consist of Yes or No values, they can easily be transformed to 1’s and 0’s. Likewise, columns with a higher number of categories can be mapped to numbers counting up to how many discrete values there are in them. Once this is done a collection of numeric explanatory variables can be stored in a data frame along with a continuous response variable. The Tenure column contains numeric continuous data, so multiple linear regression using Python can be used to create predictive models.
 
+[Back to top](#Resume-Project-List-Summary)
+
 
 
 
