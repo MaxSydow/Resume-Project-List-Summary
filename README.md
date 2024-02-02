@@ -1,5 +1,7 @@
 # Resume-Project-List-Summary
 
+Each of the projects listed below were motivated by specific business objectives that were thoughtfully determined according to the context of the data used.  Some utilized the same data set, and may not always contain thorough exploratory data analysis (EDA) or data cleaning sections.  For those that do, numerical and graphical distributions were explored and outliers and/or missing values were mitigated using IQR or Z-score criteria.  Many include a discussion of the advanced mathematics behind the ML models used.  
+
 [Linear Regression 1: Predecting Customer Tenure](#Predicting-Customer-Tenure-Using-Linear-Regression)
 
 [Linear Regression 2: Predicting Catalog Demand](#Predicting-Catalog-Demand)
